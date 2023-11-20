@@ -86,43 +86,29 @@ def quick_sort(arr):
     #Inititing QuickSort
     sort(arr,0,len(arr)-1)
    
+#this function takes dataset and algorithm to perform on
+#and prints the dataset after sorting
+def sort_using(arr,func):
+    #doing operation on copied version of the original array
+    copied = list(arr)
+    #getting the lenght of the array
+    list_length = len(arr)
+    #starting counting time
+    starting_time = time.time()
+    #passing copied array into function
+    func(copied)
+    #printing Sorted elements
+    print(copied);
 
 #List container to store random numbers
-random_number_set_1 = random_num_generator(LIST_SIZE_SET_1,MIN_RANGE,MAX_RANGE)
-random_number_set_2 = random_num_generator(LIST_SIZE_SET_2,MIN_RANGE,MAX_RANGE)
-random_number_set_3 = random_num_generator(LIST_SIZE_SET_3,MIN_RANGE,MAX_RANGE)
+set_1 = random_num_generator(LIST_SIZE_SET_1,MIN_RANGE,MAX_RANGE)
+set_2 = random_num_generator(LIST_SIZE_SET_2,MIN_RANGE,MAX_RANGE)
+set_3 = random_num_generator(LIST_SIZE_SET_3,MIN_RANGE,MAX_RANGE)
+#storing the lists within a list
+datasets = [set_1,set_2,set_3]
 
-copyforselectionsort1 = list(random_number_set_1)
-copyforselectionsort2 = list(random_number_set_2)
-copyforselectionsort3 = list(random_number_set_3)
-
-selection_sort(copyforselectionsort1)
-print(copyforselectionsort1)
-selection_sort(copyforselectionsort2)
-print(copyforselectionsort2)
-selection_sort(copyforselectionsort3)
-print(copyforselectionsort3)
-
-copyformerge_sort1 = list(random_number_set_1)
-copyformerge_sort2 = list(random_number_set_2)
-copyformerge_sort3 = list(random_number_set_3)
-
-
-merge_sort(copyformerge_sort1)
-print(copyformerge_sort1)
-selection_sort(copyformerge_sort2)
-print(copyformerge_sort2)
-selection_sort(copyformerge_sort3)
-print(copyformerge_sort3)
-
-
-copyforquick_sort1 = list(random_number_set_1)
-copyforquick_sort2 = list(random_number_set_2)
-copyforquick_sort3 = list(random_number_set_3)
-
-merge_sort(copyforquick_sort1)
-print(copyforquick_sort1)
-selection_sort(copyforquick_sort2)
-print(copyforquick_sort2)
-selection_sort(copyforquick_sort3)
-print(copyforquick_sort3)
+#sorting different datasets with different sorting algorithms
+for x in range(len(datasets)):
+    sort_using(datasets[x],selection_sort)#Implementing selection sort on each dataset
+    sort_using(datasets[x],merge_sort)#Implementing merge sort on each dataset
+    sort_using(datasets[x],quick_sort)#Implementing quick sort on each dataset
