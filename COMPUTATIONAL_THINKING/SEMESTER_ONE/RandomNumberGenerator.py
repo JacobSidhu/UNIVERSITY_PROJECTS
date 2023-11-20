@@ -105,10 +105,10 @@ set_1 = random_num_generator(LIST_SIZE_SET_1,MIN_RANGE,MAX_RANGE)
 set_2 = random_num_generator(LIST_SIZE_SET_2,MIN_RANGE,MAX_RANGE)
 set_3 = random_num_generator(LIST_SIZE_SET_3,MIN_RANGE,MAX_RANGE)
 #storing the lists within a list
-datasets = [set_1,set_2,set_3]
+DATASETS = [set_1,set_2,set_3]
 
 #sorting different datasets with different sorting algorithms
-for x in range(len(datasets)):
-    sort_using(datasets[x],selection_sort)#Implementing selection sort on each dataset
-    sort_using(datasets[x],merge_sort)#Implementing merge sort on each dataset
-    sort_using(datasets[x],quick_sort)#Implementing quick sort on each dataset
+for x in range(len(DATASETS)):
+    sort_using(DATASETS[x],selection_sort)#Implementing selection sort on each dataset
+    sort_using(DATASETS[x],merge_sort)#Implementing merge sort on each dataset
+    sort_using(DATASETS[x],quick_sort)#Implementing quick sort on each dataset
