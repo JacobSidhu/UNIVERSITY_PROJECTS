@@ -85,20 +85,13 @@ def quick_sort(arr):
            sort(arr,pivot+1,high)
     #Inititing QuickSort
     sort(arr,0,len(arr)-1)
-   
-#this function takes dataset and algorithm to perform on
-#and prints the dataset after sorting
-def sort_using(arr,func):
-    #doing operation on copied version of the original array
+    
+def time_complexity(arr,func):
     copied = list(arr)
-    #getting the lenght of the array
     list_length = len(arr)
-    #starting counting time
     starting_time = time.time()
-    #passing copied array into function
     func(copied)
-    #printing Sorted elements
-    print(copied);
+    return time.time()-starting_time  
 
 #List container to store random numbers
 set_1 = random_num_generator(LIST_SIZE_SET_1,MIN_RANGE,MAX_RANGE)
@@ -106,8 +99,9 @@ set_2 = random_num_generator(LIST_SIZE_SET_2,MIN_RANGE,MAX_RANGE)
 set_3 = random_num_generator(LIST_SIZE_SET_3,MIN_RANGE,MAX_RANGE)
 #storing the lists within a list
 DATASETS = [set_1,set_2,set_3]
-#sorting different datasets with different sorting algorithms
+#Calculating time complexity of datasets with different sorting algorithms
 for x in range(len(DATASETS)):
-    sort_using(DATASETS[x],selection_sort)#Implementing selection sort on each dataset
-    sort_using(DATASETS[x],merge_sort)#Implementing merge sort on each dataset
-    sort_using(DATASETS[x],quick_sort)#Implementing quick sort on each dataset
+    print(f"Time complexity of dataset of size {len(DATASETS[x])}")
+    print(f" Selection Sort = {time_complexity(DATASETS[x],selection_sort)}")#Invoking for selection sort on each dataset
+    print(f" merge Sort = {time_complexity(DATASETS[x],merge_sort)}")#Invoking for merge sort on each dataset
+    print(f" Quick Sort = {time_complexity(DATASETS[x],quick_sort)}")#Invoking for quick sort on each dataset
