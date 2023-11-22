@@ -9,6 +9,7 @@ LIST_SIZE_SET_1 = 100
 LIST_SIZE_SET_2 = 1000
 LIST_SIZE_SET_3 = 10000
 
+camparison_count = {'selection_sort':0,'merge_sort':0,'quick_sort':0,}
 #defining the random number generator function for reusablity
 def random_num_generator(size,min_range,max_range):
     random_numbers = []#declaring empty list
@@ -18,8 +19,16 @@ def random_num_generator(size,min_range,max_range):
     #returing list with random numbers 
     return random_numbers
 
+#List container to store random numbers
+set_1 = random_num_generator(LIST_SIZE_SET_1,MIN_RANGE,MAX_RANGE)
+set_2 = random_num_generator(LIST_SIZE_SET_2,MIN_RANGE,MAX_RANGE)
+set_3 = random_num_generator(LIST_SIZE_SET_3,MIN_RANGE,MAX_RANGE)
+#storing the lists within a list
+DATASETS = [set_1,set_2,set_3]
+
 #defining selection sort algorithm
 def selection_sort(arr):
+    camparison_count['selection_sort'] += 1
     #getting the lenght of the array
     arr_lenght = len(arr);
     #nesting loop
@@ -27,13 +36,16 @@ def selection_sort(arr):
         #innder loop
         for y in range(x+1,arr_lenght):
             if arr[x]>arr[y]:
+                camparison_count['selection_sort'] += 1
                 #swapping if found the greater value than the out loop element
                 arr[x],arr[y]=arr[y],arr[x]
                 
 #defining MergeSort algorithm 
 def merge_sort(arr):
+    camparison_count['merge_sort'] += 1
     #recursive
     if len(arr)>1:#only true if array size is greater than 1
+        camparison_count['merge_sort'] += 1
         left_half = arr[:len(arr)//2]#storing the left half of the array
         right_half = arr[len(arr)//2:]#storing the right half of the array
         merge_sort(left_half)#sorting the left of the the array
@@ -43,8 +55,10 @@ def merge_sort(arr):
         idx1,idx2,idx3 = 0,0,0
         #sorting and merging the divided array left half to right half
         while idx1<len(left_half) and idx2<len(right_half):
+            camparison_count['merge_sort'] += 1
             #Comparing and merging the sorted element into the original array
             if left_half[idx1] < right_half[idx2]:
+                camparison_count['merge_sort'] += 1
                 arr[idx3] = left_half[idx1]
                 idx1 += 1
             else:
@@ -53,11 +67,13 @@ def merge_sort(arr):
             idx3 += 1
         #Merging the other lefted arrays elements which are already sorted
         while idx1 < len(left_half):
+            camparison_count['merge_sort'] += 1
             arr[idx3]= left_half[idx1]
             idx1 += 1
             idx3 += 1
         #similary out of right half of the array
         while idx2 < len(right_half):
+            camparison_count['merge_sort'] += 1
             arr[idx3]= right_half[idx2]
             idx2 += 1
             idx3 += 1
@@ -71,6 +87,7 @@ def quick_sort(arr):
         for x in range(low,high):
             #moving all elements smaller than pivot
             if arr[x] < pivot:
+               camparison_count['quick_sort'] += 1
                idx+=1
                arr[x],arr[idx] = arr[idx],arr[x]
         #moving pivot at the end of the smaller elements
@@ -79,6 +96,7 @@ def quick_sort(arr):
         return idx
     def sort(arr,low,high):
         if low<high:
+           camparison_count['quick_sort'] += 1
            pivot = partition(arr,low,high)
            #recursivley dividing arrays
            sort(arr,low,pivot-1)
@@ -88,20 +106,15 @@ def quick_sort(arr):
     
 def time_complexity(arr,func):
     copied = list(arr)
-    list_length = len(arr)
     starting_time = time.time()
     func(copied)
     return time.time()-starting_time  
 
-#List container to store random numbers
-set_1 = random_num_generator(LIST_SIZE_SET_1,MIN_RANGE,MAX_RANGE)
-set_2 = random_num_generator(LIST_SIZE_SET_2,MIN_RANGE,MAX_RANGE)
-set_3 = random_num_generator(LIST_SIZE_SET_3,MIN_RANGE,MAX_RANGE)
-#storing the lists within a list
-DATASETS = [set_1,set_2,set_3]
 #Calculating time complexity of datasets with different sorting algorithms
 for x in range(len(DATASETS)):
-    print(f"Time complexity of dataset of size {len(DATASETS[x])}")
-    print(f" Selection Sort = {time_complexity(DATASETS[x],selection_sort)}")#Invoking for selection sort on each dataset
-    print(f" merge Sort = {time_complexity(DATASETS[x],merge_sort)}")#Invoking for merge sort on each dataset
-    print(f" Quick Sort = {time_complexity(DATASETS[x],quick_sort)}")#Invoking for quick sort on each dataset
+    print(f"\n----------Time Complexity and Camparison count with Array lenght {len(DATASETS[x])}---------\n")
+    print(f" Time complexity of dataset of size {len(DATASETS[x])} on Selection Sort = {time_complexity(DATASETS[x],selection_sort)}")#Invoking for selection sort on each dataset
+    print(f" Time complexity of dataset of size {len(DATASETS[x])} on merge Sort = {time_complexity(DATASETS[x],merge_sort)}")#Invoking for merge sort on each dataset
+    print(f" Time complexity of dataset of size {len(DATASETS[x])} on Quick Sort = {time_complexity(DATASETS[x],quick_sort)}")#Invoking for quick sort on each dataset
+    print(f"\nCamparison count = {camparison_count}\n")
+    
