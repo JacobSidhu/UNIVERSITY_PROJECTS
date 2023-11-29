@@ -1,6 +1,7 @@
 #Importing Random Engine
 import random
 import time
+import matplotlib.pyplot as plt
 
 MAX_RANGE = 999999#max range of the list elements
 MIN_RANGE = 100000#min range of the list elements
@@ -109,12 +110,36 @@ def time_complexity(arr,func):
     starting_time = time.time()
     func(copied)
     return time.time()-starting_time  
+ALGORITHMS = [selection_sort,merge_sort,quick_sort]
+time_elapsed_selection_sort = []
+time_elapsed_merge_sort = []
+time_elapsed_quick_sort = []
 
+index = 0
 #Calculating time complexity of datasets with different sorting algorithms
-for x in range(len(DATASETS)):
-    print(f"\n----------Time Complexity and Camparison count with Array lenght {len(DATASETS[x])}---------\n")
-    print(f" Time complexity of dataset of size {len(DATASETS[x])} on Selection Sort = {time_complexity(DATASETS[x],selection_sort)}")#Invoking for selection sort on each dataset
-    print(f" Time complexity of dataset of size {len(DATASETS[x])} on merge Sort = {time_complexity(DATASETS[x],merge_sort)}")#Invoking for merge sort on each dataset
-    print(f" Time complexity of dataset of size {len(DATASETS[x])} on Quick Sort = {time_complexity(DATASETS[x],quick_sort)}")#Invoking for quick sort on each dataset
-    print(f"\nCamparison count = {camparison_count}\n")
-    
+
+#calculating time Elapsed to sort Different sets of  DATASETS with different algorithms
+for data_set in DATASETS:
+    time_elapsed_selection_sort.append(time_complexity(data_set,selection_sort))
+    time_elapsed_merge_sort.append(time_complexity(data_set,merge_sort))
+    time_elapsed_quick_sort.append(time_complexity(data_set,quick_sort))
+
+
+# Plotting the graph
+plt.figure(figsize=(10, 6))  # Setting figure size
+
+# Plotting for Selection Sort
+plt.plot([LIST_SIZE_SET_1, LIST_SIZE_SET_2, LIST_SIZE_SET_3], time_elapsed_selection_sort, marker='o', label='Selection Sort')
+
+# Plotting for Merge Sort
+plt.plot([LIST_SIZE_SET_1, LIST_SIZE_SET_2, LIST_SIZE_SET_3], time_elapsed_merge_sort, marker='o', label='Merge Sort')
+
+# Plotting for Quick Sort
+plt.plot([LIST_SIZE_SET_1, LIST_SIZE_SET_2, LIST_SIZE_SET_3], time_elapsed_quick_sort, marker='o', label='Quick Sort')
+
+plt.xlabel('Input Size')  # Label for x-axis
+plt.ylabel('Time Complexity')  # Label for y-axis
+plt.title('Time Complexity Analysis of Sorting Algorithms')  # Title for the plot
+plt.legend()  # Showing legend
+plt.grid(True)  # Displaying grid
+plt.show()  # Displaying the plot
